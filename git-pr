@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+hub pull-request -m "${*:-$CURRENT_BRANCH}" -o

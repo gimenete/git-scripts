@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+HEAD=$(git symbolic-ref refs/remotes/origin/HEAD)
+DEFAULT_BRANCH=$(echo $HEAD | sed 's@^refs/remotes/origin/@@')
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+git reset $(git merge-base $DEFAULT_BRANCH $CURRENT_BRANCH)
+git add -A
+git commit -m "$*"

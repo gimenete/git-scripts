@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+git add -A
+npm run commit --silent || git commit -m "$*"
