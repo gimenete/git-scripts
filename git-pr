@@ -3,5 +3,6 @@
 set -e
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TITLE=$(echo $CURRENT_BRANCH | awk '{gsub(/-/, " ", $0); print toupper(substr($0, 0, 1)) substr($0, 2)}')
 
-hub pull-request -m "${*:-$CURRENT_BRANCH}" -o
+hub pull-request -m "${*:-$TITLE}" -o
