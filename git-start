@@ -5,9 +5,11 @@ set -e
 HEAD=$(git symbolic-ref refs/remotes/origin/HEAD)
 DEFAULT_BRANCH=$(echo $HEAD | sed 's@^refs/remotes/origin/@@')
 
+NEW_BRANCH_NAME=$(echo $* | awk '{gsub(/[^a-zA-Z0-9_]/, "-", $0); print tolower($0)}')
+
 git stash save --include-untracked Autostashing
 
 git checkout $DEFAULT_BRANCH
 git fetch --all
 git pull
-git checkout -b $* $DEFAULT_BRANCH
+git checkout -b $NEW_BRANCH_NAME $DEFAULT_BRANCH
