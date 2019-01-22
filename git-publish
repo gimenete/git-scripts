@@ -3,5 +3,6 @@
 set -e
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+REMOTE=$(git remote | grep $USER || git remote | grep origin)
 
-git push --set-upstream origin $CURRENT_BRANCH
+git push --set-upstream $REMOTE $CURRENT_BRANCH
