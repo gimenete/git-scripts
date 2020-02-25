@@ -10,6 +10,5 @@ NEW_BRANCH_NAME=$(echo $* | awk '{gsub(/[^a-zA-Z0-9_]/, "-", $0); print tolower(
 git stash save --include-untracked Autostashing
 
 git checkout $DEFAULT_BRANCH
-git fetch --all
-git pull
+git pull origin $DEFAULT_BRANCH
 git checkout -b $NEW_BRANCH_NAME $DEFAULT_BRANCH

@@ -8,6 +8,5 @@ DEFAULT_BRANCH=$(echo $HEAD | sed 's@^refs/remotes/origin/@@')
 git stash save --include-untracked Autostashing
 
 git checkout $DEFAULT_BRANCH
-git fetch --all
-git pull
+git pull origin $DEFAULT_BRANCH
 
