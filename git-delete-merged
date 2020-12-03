@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+HEAD=$(git symbolic-ref refs/remotes/origin/HEAD)
+DEFAULT_BRANCH=$(echo $HEAD | sed 's@^refs/remotes/origin/@@')
+
+git checkout $DEFAULT_BRANCH
+
+git branch --merged | grep -i -v -E $DEFAULT_BRANCH | xargs -n 1 git branch --delete
+
+git checkout --quiet @{-1};
