@@ -5,4 +5,17 @@ set -e
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 TITLE=$(echo $CURRENT_BRANCH | awk '{gsub(/-/, " ", $0); print toupper(substr($0, 0, 1)) substr($0, 2)}')
 
-echo "${*:-$TITLE}" | hub pull-request -F - -dope
+TEMPLATE=.github/PULL_REQUEST_TEMPLATE.md
+if [ -f "$TEMPLATE" ]; then
+  BODY=$(more $TEMPLATE)
+fi
+
+ARGS="-ope"
+if [[ $PWD == $HOME/projects/github.com/github/* ]]; then
+  ARGS="-dope"
+fi
+
+echo "${*:-$TITLE}
+
+$BODY
+" | hub pull-request -F - $ARGS
